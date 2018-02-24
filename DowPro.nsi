@@ -42,7 +42,6 @@
   !insertmacro MUI_PAGE_WELCOME
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_COMPONENTS
-    !insertmacro MUI_PAGE_COMPONENTS
   
   !insertmacro MUI_PAGE_INSTFILES
   
@@ -57,17 +56,30 @@
 ;--------------------------------
 ;Installer Sections
 
-Section "Dummy Section" SecDummy
+Section ;hidden
 
   SetOutPath "$INSTDIR"
-  
-  ;ADD YOUR OWN FILES HERE...
+  File /r ".\Content\MainFiles\*.*"
   
   ;Store installation folder
-  WriteRegStr HKCU "Software\DowProInstaller" "" $INSTDIR
+  ;WriteRegStr HKCU "Software\DowProInstaller" "" $INSTDIR
   
   ;Create uninstaller
-  WriteUninstaller "$INSTDIR\Uninstall.exe"
+  WriteUninstaller "$INSTDIR\DoWpro\UninstallDoWpro.exe"
+
+SectionEnd
+
+Section "A" SecA
+
+ SetOutPath "$INSTDIR"
+ File /r ".\Content\SectionA\*.*"
+
+SectionEnd
+
+Section "B" SecB
+
+ SetOutPath "$INSTDIR"
+ File /r ".\Content\SectionB\*.*"
 
 SectionEnd
 
@@ -75,11 +87,13 @@ SectionEnd
 ;Descriptions
 
   ;Language strings
-  LangString DESC_SecDummy ${LANG_ENGLISH} "A test section."
+  LangString DESC_SecA ${LANG_ENGLISH} "Section A description."
+  LangString DESC_SecB ${LANG_ENGLISH} "Section B description."
 
   ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-    !insertmacro MUI_DESCRIPTION_TEXT ${SecDummy} $(DESC_SecDummy)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecA} $(DESC_SecA)
+	!insertmacro MUI_DESCRIPTION_TEXT ${SecB} $(DESC_SecB)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------
@@ -87,12 +101,9 @@ SectionEnd
 
 Section "Uninstall"
 
-  ;ADD YOUR OWN FILES HERE...
+  Delete "$INSTDIR\DoWpro\UninstallDoWpro.exe"
+  RMDir "$INSTDIR\DoWpro"
 
-  Delete "$INSTDIR\Uninstall.exe"
-
-  RMDir "$INSTDIR"
-
-  DeleteRegKey /ifempty HKCU "Software\DowProInstaller"
+  ;DeleteRegKey /ifempty HKCU "Software\DowProInstaller"
 
 SectionEnd
