@@ -59,8 +59,11 @@
 
 Section "!Main files" ;hidden
   SectionIn RO
-
+  
   SetOutPath "$INSTDIR"
+  
+  RMDir /r "$INSTDIR\DoWpro"
+
   File /r ".\Content\MainFiles\*.*"
   
   ;Create uninstaller
@@ -151,6 +154,7 @@ SectionEnd
 Section /o "Stronghold Assaults Minimod" SectionStrongholdMiniMod
 
  SetOutPath "$INSTDIR"
+ RMDir /r "$INSTDIR\DoWproSP"
  File /r ".\Content\StrongHoldMiniMod\*.*"
 
 SectionEnd
@@ -217,9 +221,11 @@ Section "Uninstall"
   FindClose $0
   
   ; Cleaning files at Soulstorm root
-  delete "$INSTDIR\DoWpro.module"
+  Delete "$INSTDIR\DoWpro.module"
+  Delete "$INSTDIR\DowproSP.module"
 
   Delete "$INSTDIR\UninstallDoWpro.exe"
   RMDir /r "$INSTDIR\DoWpro"
+  RMDir /r "$INSTDIR\DoWproSP"
 
 SectionEnd
