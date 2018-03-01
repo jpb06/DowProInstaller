@@ -79,7 +79,7 @@ Section "Vanilla Soulstorm Hotkeys" SectionHotkeysVanilla
 	StrCmp $1 "." skip
 	StrCmp $1 ".." skip
 	SetOutPath "$INSTDIR\Profiles\$1\DoWpro"
-	File /r ".\Content\Hotkeys_Vanilla\*.*"
+	File ".\Content\Hotkeys_Vanilla\KEYDEFAULTS.LUA"
 	
 	FindNext $0 $1
 	Goto loop
@@ -99,7 +99,7 @@ Section /o "AZERTY Hotkeys" SectionHotkeysAzerty
 	StrCmp $1 "." skip
 	StrCmp $1 ".." skip
 	SetOutPath "$INSTDIR\Profiles\$1\DoWpro"
-	File /r ".\Content\Hotkeys_AZERTY\*.*"
+	File ".\Content\Hotkeys_AZERTY\KEYDEFAULTS.LUA"
 	
 	FindNext $0 $1
 	Goto loop
@@ -119,7 +119,7 @@ Section /o "QWERTY Hotkeys" SectionHotkeysQwerty
 	StrCmp $1 "." skip
 	StrCmp $1 ".." skip
 	SetOutPath "$INSTDIR\Profiles\$1\DoWpro"
-	File /r ".\Content\Hotkeys_QWERTY\*.*"
+	File ".\Content\Hotkeys_QWERTY\KEYDEFAULTS.LUA"
 	
 	FindNext $0 $1
 	Goto loop
@@ -139,7 +139,7 @@ Section /o "Left-Handed Hotkeys" SectionHotkeysLeftHanded
 	StrCmp $1 "." skip
 	StrCmp $1 ".." skip
 	SetOutPath "$INSTDIR\Profiles\$1\DoWpro"
-	File /r ".\Content\Hotkeys_LeftHanded\*.*"
+	File ".\Content\Hotkeys_LeftHanded\KEYDEFAULTS.LUA"
 	
 	FindNext $0 $1
 	Goto loop
@@ -210,7 +210,7 @@ Section "Uninstall"
 	StrCmp $1 "" done
 	StrCmp $1 "." skip
 	StrCmp $1 ".." skip
-	RMDir /r "$INSTDIR\Profiles\$1\DoWpro"
+	Delete "$INSTDIR\Profiles\$1\DoWpro\KEYDEFAULTS.LUA"
 		
 	FindNext $0 $1
 	Goto loop
