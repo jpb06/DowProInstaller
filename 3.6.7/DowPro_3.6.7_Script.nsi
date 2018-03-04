@@ -131,6 +131,26 @@ Section /o "QWERTY Hotkeys" SectionHotkeysQwerty
 
 SectionEnd
 
+Section /o "German Hotkeys" SectionHotkeysGerman
+
+ FindFirst $0 $1 "$INSTDIR\Profiles\*.*"
+ loop:
+	StrCmp $1 "" done
+	StrCmp $1 "." skip
+	StrCmp $1 ".." skip
+	SetOutPath "$INSTDIR\Profiles\$1\DoWpro"
+	File ".\Content\Hotkeys_German\KEYDEFAULTS.LUA"
+	
+	FindNext $0 $1
+	Goto loop
+ skip:
+	FindNext $0 $1
+    Goto loop
+ done:
+ FindClose $0
+
+SectionEnd
+
 Section /o "Left-Handed Hotkeys" SectionHotkeysLeftHanded
 
  FindFirst $0 $1 "$INSTDIR\Profiles\*.*"
@@ -166,6 +186,7 @@ SectionEnd
   LangString DESC_SectionHotkeysVanilla ${LANG_ENGLISH} "Installs the Vanilla Soulstorm hotkeys adapted to the mod."
   LangString DESC_SectionHotkeysAzerty ${LANG_ENGLISH} "Installs these set of keys which primarly use the AZERTY configuration."
   LangString DESC_SectionHotkeysQwerty ${LANG_ENGLISH} "Installs these set of keys which primarly use the QWERT configuration."
+  LangString DESC_SectionHotkeysGerman ${LANG_ENGLISH} "Installs these set of keys which primarly use the German configuration."
   LangString DESC_SectionHotkeysLeftHanded ${LANG_ENGLISH} "Installs these set of keys which primarly use the LMNB configuration."
   LangString DESC_SectionStrongholdMiniMod ${LANG_ENGLISH} "Installs the Stronghold Assaults minimod in your main Soulstorm folder. AFTER INSTALLATION IS FINISHED, GO TO THE GAME MANAGER AND ACTIVATE IT."
 
@@ -174,6 +195,7 @@ SectionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${SectionHotkeysVanilla} $(DESC_SectionHotkeysVanilla)
 	!insertmacro MUI_DESCRIPTION_TEXT ${SectionHotkeysAzerty} $(DESC_SectionHotkeysAzerty)
     !insertmacro MUI_DESCRIPTION_TEXT ${SectionHotkeysQwerty} $(DESC_SectionHotkeysQwerty)
+	!insertmacro MUI_DESCRIPTION_TEXT ${SectionHotkeysGerman} $(DESC_SectionHotkeysGerman)
     !insertmacro MUI_DESCRIPTION_TEXT ${SectionHotkeysLeftHanded} $(DESC_SectionHotkeysLeftHanded)
     !insertmacro MUI_DESCRIPTION_TEXT ${SectionStrongholdMiniMod} $(DESC_SectionStrongholdMiniMod)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
@@ -194,6 +216,7 @@ Function .onSelChange
     !insertmacro RadioButton ${SectionHotkeysVanilla}
     !insertmacro RadioButton ${SectionHotkeysAzerty}
     !insertmacro RadioButton ${SectionHotkeysQwerty}
+	!insertmacro RadioButton ${SectionHotkeysGerman}
 	!insertmacro RadioButton ${SectionHotkeysLeftHanded}
   !insertmacro EndRadioButtons
 
